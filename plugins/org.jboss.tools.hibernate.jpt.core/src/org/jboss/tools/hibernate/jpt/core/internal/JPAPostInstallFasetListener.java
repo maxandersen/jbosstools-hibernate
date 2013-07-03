@@ -113,7 +113,11 @@ public class JPAPostInstallFasetListener implements IFacetedProjectListener {
 		try {
 			ILaunchConfiguration lc = getLaunchConfiguration(project);
 			if (lc != null && lc.exists()){
-				ProjectUtils.toggleHibernateOnProject(project, true, lc.getName());
+			    if(project.getName().equals(lc.getName()) {
+				    ProjectUtils.toggleHibernateOnProject(project, true, null);
+				} else {
+				    ProjectUtils.toggleHibernateOnProject(project, true, lc.getName());
+				}
 				return false;
 			}
 		} catch (CoreException e) {
@@ -159,7 +163,11 @@ public class JPAPostInstallFasetListener implements IFacetedProjectListener {
 			wc.setAttribute(IConsoleConfigurationLaunchConstants.USE_JPA_PROJECT_PROFILE, Boolean.toString(true));
 
 			wc.doSave();
-			ProjectUtils.toggleHibernateOnProject(project, true, launchName);
+			if(launchName.equals(project.getName())) {
+			    ProjectUtils.toggleHibernateOnProject(project, true, null);
+			} else {
+			    ProjectUtils.toggleHibernateOnProject(project, true, launchName);
+			}
 		} catch (CoreException e) {
 			HibernateJptPlugin.logException(e);
 		}
